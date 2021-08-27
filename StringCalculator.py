@@ -49,8 +49,12 @@ def test():
     assert (addStrings("//[+][||]\n3+4||5||6")) == 18, "Given string \"//[+][||]\n3+4||5||6\" didn't return 18"
     
     # test case for negative numbers
-    addStrings("1,2,3,-2")
-    addStrings("10,-20,30,40,-50")
+    # addStrings("1,2,3,-2")
+    # addStrings("10,-20,30,40,-50")
+    
+    # test case for numbers greater than 1000
+    assert (addStrings("1,2,3000")) == 3, "Given string \"1,2,3000\" didn't return 3"
+    assert (addStrings("3,4000,5,12000")) == 8, "Given string \"3,4000,5,12000\" didn't return 8"
     
     
     
@@ -129,6 +133,8 @@ def addNumbers(numbers):
         if int(num) < 0:
             negativeNums += num + ','
             flag = 1
+        if int(num)>1000:
+            continue
         sum += int(num)
     if flag == 1:
         raise Exception("Negative numbers not allowed. Number(s) Entered : ",negativeNums)
