@@ -26,6 +26,11 @@ def test():
     assert (addStrings("1\n2")) == 3, "Given string \"1\n2\" didn't return 3"
     assert (addStrings("4\n5")) == 9, "Given string \"4\n5\" didn't return 9"
     
+    
+    # test case for n numbers - newline separated
+    assert (addStrings("1\n2\n3\n4\n5")) == 15, "Given string \"1\n2\n3\n4\n5\" didn't return 15"
+    assert (addStrings("1\n4\n5")) == 10, "Given string \"1\n4\n5\" didn't return 10"
+    
     print("\n===> All Test Cases Passed.\n")
 
 
