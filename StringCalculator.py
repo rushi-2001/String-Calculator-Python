@@ -31,6 +31,11 @@ def test():
     assert (addStrings("1\n2\n3\n4\n5")) == 15, "Given string \"1\n2\n3\n4\n5\" didn't return 15"
     assert (addStrings("1\n4\n5")) == 10, "Given string \"1\n4\n5\" didn't return 10"
     
+    
+    # test case for n numbers - comma and newline separated
+    assert (addStrings("1\n2\n3,4,5")) == 15, "Given string \"1\n2\n3,4,5\" didn't return 15"
+    assert (addStrings("1,4\n5")) == 10, "Given string \"1,4\n5\" didn't return 10"
+    
     print("\n===> All Test Cases Passed.\n")
 
 
@@ -43,14 +48,30 @@ def addStrings(numString):
         return(int(numString))
     else:
         sum = 0
-        delimiter = ","
-        if numString.find('\n') != -1:
-            delimiter = "\n"
+        delimiter = ","        
+        if numString.find('\n') != -1 and numString.find(',') != -1:
+            numList = []
+            str1 = numString.split('\n')
+            for s in str1:
+                if "," in s:
+                    x = s.split(',')
+                    for i in x:
+                        numList.append(int(i))
+                else:
+                    numList.append(int(s))
+            
+            return addNumbers(numList)
+        elif numString.find('\n') != -1:
+            delimiter = '\n'    
+        
         numbers = numString.split(delimiter)
-        for num in numbers:
-            sum += int(num)
-        return sum
-    
+        return addNumbers(numbers)
+
+def addNumbers(numbers):
+    sum = 0
+    for num in numbers:
+        sum += int(num)
+    return sum
     
 
 # call test function
