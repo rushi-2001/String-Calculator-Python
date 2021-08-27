@@ -41,8 +41,12 @@ def test():
     assert (addStrings("//%\n3%4%5%6")) == 18, "Given string \"//%\n3%4%5%6\" didn't return 18"
     
     # test case for n numbers - custom delimiter of n char
-    assert (addStrings("//***\n1***2***3")) == 6, "Given string \"//***\n1***2***3\" didn't return 18"
+    assert (addStrings("//***\n1***2***3")) == 6, "Given string \"//***\n1***2***3\" didn't return 6"
     assert (addStrings("//@$@$\n3@$@$4@$@$5@$@$6")) == 18, "Given string \"//@$@$\n3@$@$4@$@$5@$@$6\" didn't return 18"
+    
+    # test case for n numbers - multiple custom delimiters
+    assert (addStrings("//[**][!!]\n1**2!!3")) == 6, "Given string \"//[**][!!]\n1**2!!3\" didn't return 6"
+    assert (addStrings("//[+][||]\n3+4||5||6")) == 18, "Given string \"//[+][||]\n3+4||5||6\" didn't return 18"
     
     
     
@@ -56,12 +60,35 @@ def addStrings(numString):
         return 0
     elif numString.isdigit():
         return(int(numString))
+    elif numString[0] == '/' and numString[2] == "[":
+        list1 = numString.split('\n')
+        list2 = list1[0].split('[')
+        list2 = list2[1:]
+        
+        # store all delimeters in list
+        delimiters = []
+        for s in list2:
+            x = s[0:len(s)-1]
+            delimiters.append(x)
+        
+        str1 = list1[1]
+        
+        # replace all delimiters with comma
+        for delim in delimiters:
+            if delim in str1:
+                str1 = str1.replace(delim, ',')
+        
+        numbers = str1.split(",")
+        return addNumbers(numbers)          
+          
+        
     elif numString[0] == '/':
         list1 = numString.split('\n')
         delimiter = list1[0][2:]
         numbers = list1[1].split(delimiter)
         return addNumbers(numbers)
     
+        
     else:
         sum = 0
         delimiter = ","        
