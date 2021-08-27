@@ -14,9 +14,13 @@ def test():
     assert (addStrings("2")) == 2, "Single number String \"2\" didn't return 2"
     assert (addStrings("42")) == 42, "Single number String \"42\" didn't return 42"
     
-     # test case for two numbers
+    # test case for two numbers - comma separated
     assert (addStrings("1,2")) == 3, "Given string \"1,2\" didn't return 3"
     assert (addStrings("4,5")) == 9, "Given string \"4,5\" didn't return 9"
+    
+    # test case for n numbers - comma separated
+    assert (addStrings("1,2,3,4,5")) == 15, "Given string \"1,2,3,4,5\" didn't return 15"
+    assert (addStrings("1,4,5")) == 10, "Given string \"1,4,5\" didn't return 10"
     
     print("\n===> All Test Cases Passed.\n")
 
