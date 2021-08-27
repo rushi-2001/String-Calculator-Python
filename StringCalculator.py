@@ -48,6 +48,11 @@ def test():
     assert (addStrings("//[**][!!]\n1**2!!3")) == 6, "Given string \"//[**][!!]\n1**2!!3\" didn't return 6"
     assert (addStrings("//[+][||]\n3+4||5||6")) == 18, "Given string \"//[+][||]\n3+4||5||6\" didn't return 18"
     
+    # test case for negative numbers
+    addStrings("1,2,3,-2")
+    addStrings("10,-20,30,40,-50")
+    
+    
     
     
     print("\n===> All Test Cases Passed.\n")
@@ -60,6 +65,8 @@ def addStrings(numString):
         return 0
     elif numString.isdigit():
         return(int(numString))
+    
+    # more multiple custom delimeters
     elif numString[0] == '/' and numString[2] == "[":
         list1 = numString.split('\n')
         list2 = list1[0].split('[')
@@ -73,7 +80,6 @@ def addStrings(numString):
         
         str1 = list1[1]
         
-        # replace all delimiters with comma
         for delim in delimiters:
             if delim in str1:
                 str1 = str1.replace(delim, ',')
@@ -81,20 +87,23 @@ def addStrings(numString):
         numbers = str1.split(",")
         return addNumbers(numbers)          
           
-        
+    # for single custom delimeter
     elif numString[0] == '/':
         list1 = numString.split('\n')
         delimiter = list1[0][2:]
+        
         numbers = list1[1].split(delimiter)
         return addNumbers(numbers)
     
         
     else:
         sum = 0
-        delimiter = ","        
+        delimiter = ","  
+              
         if numString.find('\n') != -1 and numString.find(',') != -1:
             numList = []
             str1 = numString.split('\n')
+            
             for s in str1:
                 if "," in s:
                     x = s.split(',')
@@ -104,16 +113,26 @@ def addStrings(numString):
                     numList.append(int(s))
             
             return addNumbers(numList)
+        
         elif numString.find('\n') != -1:
             delimiter = '\n'    
         
         numbers = numString.split(delimiter)
         return addNumbers(numbers)
 
+
 def addNumbers(numbers):
     sum = 0
+    flag = 0
+    negativeNums = ''
     for num in numbers:
+        if int(num) < 0:
+            negativeNums += num + ','
+            flag = 1
         sum += int(num)
+    if flag == 1:
+        raise Exception("Negative numbers not allowed. Number(s) Entered : ",negativeNums)
+
     return sum
     
 
