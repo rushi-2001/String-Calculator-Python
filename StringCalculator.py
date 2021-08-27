@@ -22,6 +22,10 @@ def test():
     assert (addStrings("1,2,3,4,5")) == 15, "Given string \"1,2,3,4,5\" didn't return 15"
     assert (addStrings("1,4,5")) == 10, "Given string \"1,4,5\" didn't return 10"
     
+     # test case for two numbers - newline separated
+    assert (addStrings("1\n2")) == 3, "Given string \"1\n2\" didn't return 3"
+    assert (addStrings("4\n5")) == 9, "Given string \"4\n5\" didn't return 9"
+    
     print("\n===> All Test Cases Passed.\n")
 
 
@@ -34,10 +38,14 @@ def addStrings(numString):
         return(int(numString))
     else:
         sum = 0
-        numbers = numString.split(",")
+        delimiter = ","
+        if numString.find('\n') != -1:
+            delimiter = "\n"
+        numbers = numString.split(delimiter)
         for num in numbers:
             sum += int(num)
-        return sum 
+        return sum
+    
     
 
 # call test function
