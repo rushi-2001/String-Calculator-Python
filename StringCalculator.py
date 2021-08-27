@@ -33,8 +33,9 @@ def test():
     
     
     # test case for n numbers - comma and newline separated
-    assert (addStrings("1\n2\n3,4,5")) == 15, "Given string \"1\n2\n3,4,5\" didn't return 15"
-    assert (addStrings("1,4\n5")) == 10, "Given string \"1,4\n5\" didn't return 10"
+    assert (addStrings("//;\n1;2;3")) == 6, "Given string \"//;\n1;2;3\" didn't return 6"
+    assert (addStrings("//%\n3%4%5%6")) == 18, "Given string \"//%\n3%4%5%6\" didn't return 18"
+    
     
     print("\n===> All Test Cases Passed.\n")
 
@@ -46,6 +47,12 @@ def addStrings(numString):
         return 0
     elif numString.isdigit():
         return(int(numString))
+    elif numString[0] == '/':
+        delimiter = numString[2]
+        str1 = numString.split('\n')[1]
+        numbers = str1.split(delimiter)
+        return addNumbers(numbers)
+    
     else:
         sum = 0
         delimiter = ","        
