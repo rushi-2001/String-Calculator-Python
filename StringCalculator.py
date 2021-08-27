@@ -33,8 +33,17 @@ def test():
     
     
     # test case for n numbers - comma and newline separated
+    assert (addStrings("1\n2\n3,4,5")) == 15, "Given string \"1\n2\n3,4,5\" didn't return 15"
+    assert (addStrings("2,3\n5")) == 10, "Given string \"2,3\n5\" didn't return 10"
+    
+    # test case for n numbers - custom delimiter of 1 char
     assert (addStrings("//;\n1;2;3")) == 6, "Given string \"//;\n1;2;3\" didn't return 6"
     assert (addStrings("//%\n3%4%5%6")) == 18, "Given string \"//%\n3%4%5%6\" didn't return 18"
+    
+    # test case for n numbers - custom delimiter of n char
+    assert (addStrings("//***\n1***2***3")) == 6, "Given string \"//***\n1***2***3\" didn't return 18"
+    assert (addStrings("//@$@$\n3@$@$4@$@$5@$@$6")) == 18, "Given string \"//@$@$\n3@$@$4@$@$5@$@$6\" didn't return 18"
+    
     
     
     print("\n===> All Test Cases Passed.\n")
@@ -48,9 +57,9 @@ def addStrings(numString):
     elif numString.isdigit():
         return(int(numString))
     elif numString[0] == '/':
-        delimiter = numString[2]
-        str1 = numString.split('\n')[1]
-        numbers = str1.split(delimiter)
+        list1 = numString.split('\n')
+        delimiter = list1[0][2:]
+        numbers = list1[1].split(delimiter)
         return addNumbers(numbers)
     
     else:
